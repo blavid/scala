@@ -31,13 +31,20 @@ object Main {
       else if (remainingChars.head == rightParen) leftParens > 0 && isBalanced(remainingChars.tail, leftParens - 1)
       else isBalanced(remainingChars.tail, leftParens)
     }
+
     isBalanced(chars, 0)
   }
 
   /**
-   * Exercise 3
-   */
-    def countChange(money: Int, coins: List[Int]): Int =
-      if (coins.isEmpty || money == 0) 0
-      else 1
+    * Exercise 3
+    * All ways to sort n with t-1 coins; plus
+    * All ways to sort n-d with t coins, where d is
+    * the denomination of the coin excluded in the above case.
+    */
+
+  def countChange(money: Int, coins: List[Int]): Int = {
+    if (coins.isEmpty || money < 0) 0
+    else if (money == 0) 1
+    else countChange(money, coins.tail) + countChange(money - coins.head, coins)
   }
+}
